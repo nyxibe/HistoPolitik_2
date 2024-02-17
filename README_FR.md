@@ -22,15 +22,15 @@ En associant : le travail inédit de numérisation des données électorales et 
   - [Etapes d'instalaltion](#Etapes-d'instalaltion)
     -[Prérequis](#Prérequis)
     -[Installation](#Installation)
-  - [EDA : Création de la Data](#EDA-:-Création-de-la-Data)
+  - [EDA - Création de la Data](#EDA---Création-de-la-Data)
     - EDA0_import_files.ipynb: Import, premieres analyse, document de synthèse 
     - EDA1_Analysis_2cities.ipynb: Analyse de la data focalisée sur 2 communes 
     - EDA2_Target.ipynb : Fichiers de noscibles 
     - Sélection, préparation et mise en forme des données par fichier
     - Moteur d’intégration fusionnant et validant les données pour nos modèles
-  - [MODEL : Analyse / exploitations de 3 Modèles](#MODEL-:-Analyse-/-exploitations-de-3-Modèles)
-  - [MISE EN BASE SQL de toutes les informations necessaires](#MISE-EN-BASE-SQL-de-toutes-les-informations-necessaires)
-  - [Livraison_FRONT : Visualisation finale des données](#Livraison_FRONT-:-Visualisation-finale-des-données)
+  - [MODEL - Analyse / exploitations de 3 Modèles](#MODEL-:-Analyse-/-exploitations-de-3-Modèles)
+  - [Mise en place de la base SQL](#Mise-en-place-de-la-base-SQL)
+  - [Livraison_FRONT - Visualisation finale des données](#Livraison_FRONT---Visualisation-finale-des-données)
   - [streamlit_app](#streamlit_app)
   - [HuggingFace space](#HuggingFace-space)
   - [Auteurs](#Auteurs)
@@ -80,7 +80,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## EDA : Création de la Data
+## EDA - Création de la Data
 
 ### > EDA0_import_files.ipynb:
 
@@ -122,14 +122,14 @@ Ce notebook parcourt le répertoire /DATA/EXPORT_CSV/ et traite tous les fichier
 
 Une fois tous les fichiers traités, notre dataframe globale est exportée sous forme de fichier plat.
 
-## MODEL : Analyse / exploitations de 3 Modèles
+## MODEL - Analyse / exploitations de 3 Modèles
 
 Ce répertoire contient tous les modèles entraînés pour notre Data. Dans un premier temps, construire les modèles les plus performants. Les exporter. Exploiter le fruit de leurs prédictions sous 2 formats :
 - Prédictions pour chaque ligne du périmètre des scores pour tous les groupes (partis) référencés.
 - Exporter pour chaque groupe le poids de chaque facteur d’importance pour plus tard les examiner. 
 Concrètement, chacun de nous a depuis la même data travailler sur un modèle et s’est chargé de fournir sous forme de données SQL ou de fichier plat les 2 types d’informations attendues.
 
-## MISE EN BASE SQL de toutes les informations necessaires
+## Mise en place de la base SQL
 
 Toutes nos informations en entrée comme en sortie seront centralisées dans une base SQL avec les tables ci-dessous :
 - villes_tbl [informations sur les communes]
