@@ -33,9 +33,9 @@ En associant : le travail inédit de numérisation des données électorales et 
     - [Mise en place de la base SQL](#Mise-en-place-de-la-base-SQL)
     - [Livraison_FRONT - Visualisation finale des données](#Livraison_FRONT---Visualisation-finale-des-données)
   - [streamlit_app](#streamlit_app)
-  - [HuggingFace space](#HuggingFace-space)
-  - [Auteurs](#Auteurs)
-  
+- [HuggingFace space](#HuggingFace-space)
+- [Auteurs](#Auteurs)
+
 
 ## Instructions
 
