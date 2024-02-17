@@ -21,14 +21,14 @@ En associant : le travail inédit de numérisation des données électorales et 
   - [Table des matières](#Table-des-matières)
   - [Etapes d'instalaltion](#Etapes-d'instalaltion)
     -[Prérequis](#Prérequis)
-    -[Installation](#Installation)
+    -[Instructions](#Instructions)
   - [EDA - Création de la Data](#EDA---Création-de-la-Data)
     - EDA0_import_files.ipynb: Import, premieres analyse, document de synthèse 
     - EDA1_Analysis_2cities.ipynb: Analyse de la data focalisée sur 2 communes 
     - EDA2_Target.ipynb : Fichiers de noscibles 
     - Sélection, préparation et mise en forme des données par fichier
     - Moteur d’intégration fusionnant et validant les données pour nos modèles
-  - [MODEL - Analyse / exploitations de 3 Modèles](#MODEL-:-Analyse-/-exploitations-de-3-Modèles)
+  - [MODEL - Analyse / exploitations de 3 Modèles](#MODEL---Analyse-/-exploitations-de-3-Modèles)
   - [Mise en place de la base SQL](#Mise-en-place-de-la-base-SQL)
   - [Livraison_FRONT - Visualisation finale des données](#Livraison_FRONT---Visualisation-finale-des-données)
   - [streamlit_app](#streamlit_app)
@@ -36,7 +36,7 @@ En associant : le travail inédit de numérisation des données électorales et 
   - [Auteurs](#Auteurs)
   
 
-## Etapes d'instalaltion
+## Instructions
 
 Suivez les instructions suivantes pour mettre en place l'application et la faire tourner en local sur votre machine
 
@@ -156,10 +156,12 @@ Avant même de se lancer et de mettre en forme nos résultats, il nous a fallu o
 
 ## streamlit_app
 Répertoire streamlit pour faire les tests en local. 
-
+```bash
+streamlit run Accueil.py
+```
 
 ## HuggingFace space
-Dans le cas où vous ne voulez pas faire tourner l'application en local et ne rien installer. Vous pouvez aller sur [Hugging Face Space](https://huggingface.co/spaces/Caicaire93/Histo_politik) créé pour l'occasion
+Dans le cas où vous ne voulez rien installer. Vous pouvez aller directement sur [Hugging Face Space](https://huggingface.co/spaces/Caicaire93/Histo_politik) créé pour l'occasion.
 
 ## Auteurs
 - [NYX](https://github.com/nyxibe)
