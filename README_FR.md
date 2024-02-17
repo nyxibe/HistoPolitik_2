@@ -18,19 +18,20 @@ En associant : le travail inédit de numérisation des données électorales et 
 ## Table des matières
 
 - [HISTO POLITIK : M.L. & Sciences Sociales](#HISTO-POLITIK-:-M.L.-&-Sciences-Sociales)
-  - [Table des matières](#Table-des-matières)
-  - [Etapes d'instalaltion](#Etapes-d'instalaltion)
+- [Table des matières](#Table-des-matières)
+- [Instructions](#Instructions)
     -[Prérequis](#Prérequis)
     -[Instructions](#Instructions)
-  - [EDA - Création de la Data](#EDA---Création-de-la-Data)
-    - EDA0_import_files.ipynb: Import, premieres analyse, document de synthèse 
-    - EDA1_Analysis_2cities.ipynb: Analyse de la data focalisée sur 2 communes 
-    - EDA2_Target.ipynb : Fichiers de noscibles 
-    - Sélection, préparation et mise en forme des données par fichier
-    - Moteur d’intégration fusionnant et validant les données pour nos modèles
-  - [MODEL - Analyse / exploitations de 3 Modèles](#MODEL---Analyse-/-exploitations-de-3-Modèles)
-  - [Mise en place de la base SQL](#Mise-en-place-de-la-base-SQL)
-  - [Livraison_FRONT - Visualisation finale des données](#Livraison_FRONT---Visualisation-finale-des-données)
+  - [Etapes réalisées pour la réalisation du projet](#Etapes-réalisées-pour-la-réalisation-du-projet)
+    - [EDA - Création de la Data](#EDA---Création-de-la-Data)
+      - EDA0_import_files.ipynb: Import, premieres analyse, document de synthèse 
+      - EDA1_Analysis_2cities.ipynb: Analyse de la data focalisée sur 2 communes 
+      - EDA2_Target.ipynb : Fichiers de noscibles 
+      - Sélection, préparation et mise en forme des données par fichier
+      - Moteur d’intégration fusionnant et validant les données pour nos modèles
+    - [MODEL - Analyse / exploitations de 3 Modèles](#MODEL---Analyse-/-exploitations-de-3-Modèles)
+    - [Mise en place de la base SQL](#Mise-en-place-de-la-base-SQL)
+    - [Livraison_FRONT - Visualisation finale des données](#Livraison_FRONT---Visualisation-finale-des-données)
   - [streamlit_app](#streamlit_app)
   - [HuggingFace space](#HuggingFace-space)
   - [Auteurs](#Auteurs)
@@ -60,7 +61,7 @@ git clone https://github.com/nyxibe/HistoPolitik_2.git
 cd HistoPolitik_2
 ```
 
-3. Créer un environnement (recommendé):
+3. Créer un environnement (recommandé):
 ```bash
 virtualenv venv
 ```
@@ -79,10 +80,11 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+## Etapes réalisées pour la réalisation du projet
 
-## EDA - Création de la Data
+### EDA - Création de la Data
 
-### > EDA0_import_files.ipynb:
+#### > EDA0_import_files.ipynb:
 
 Après la récupération de l'intégralité des fichiers au format CSV à partir du site web.
 Construction d’un dataframe cataloguant les fichiers explorés.
@@ -98,18 +100,18 @@ L'objectif est de filtrer ces documents, identifier les liaisons, et surtout con
 
 PS : Les structures des partis évoluent constamment, et transcoder ces évolutions serait trop chronophage (nécessiterait des arbitrages discutables). De plus, les structures nationales des communes et cantons évoluent également, et vouloir travailler sur des échelles de temps nécessiterait des travaux de transcodage prolongés.
 
-### > EDA1_Analysis_2cities.ipynb:
+#### > EDA1_Analysis_2cities.ipynb:
 Ce notebook analyse le catalogue de dataframes et régénère, pour chaque fichier, une dataframe réduite au périmètre de 2 communes. Cela permet de faire des analyses poussées pour valider l'unicité ou l'absence d'unité de ligne par commune et de créer des graphiques.
 
-### > EDA2_Target.ipynb :
+#### > EDA2_Target.ipynb :
 Ce notebook se focalise sur notre cible : les résultats aux législatives de 2022 des communes de plus de 200 inscrits. Il nous permet d'explorer la structure et la forme de ces données, la mise en place de regroupements, d'observer la ventilation des votes en fonction du nombre d'inscrits par commune.
 
-### > Sélection, préparation et mise en forme des données par fichier :
+#### > Sélection, préparation et mise en forme des données par fichier :
 Après la phase d'exploration, vient la cinstruction de la DATA support pour nos modèles. Chaque fichier source a été traité individuellement dans une note portant le nom "df_create_COD_NomDuFichierSource.ipynb". 
 Ce fichier prendra en entrée le fichier source auquel il fait référence, et disposera de codes uniques à 3 lettres codifiant cette même source. 
 Ce notebook filtrera, notera et fournira en sortie les informations le concernant à exporter pour notre étude dans un fichier CSV. 
 
-### > Moteur d’intégration fusionnant et validant les données pour nos modèles :
+#### > Moteur d’intégration fusionnant et validant les données pour nos modèles :
 
 Ce notebook parcourt le répertoire /DATA/EXPORT_CSV/ et traite tous les fichiers .csv. Tests & actions :
 - A: commence par final
@@ -122,14 +124,14 @@ Ce notebook parcourt le répertoire /DATA/EXPORT_CSV/ et traite tous les fichier
 
 Une fois tous les fichiers traités, notre dataframe globale est exportée sous forme de fichier plat.
 
-## MODEL - Analyse / exploitations de 3 Modèles
+### MODEL - Analyse / exploitations de 3 Modèles
 
 Ce répertoire contient tous les modèles entraînés pour notre Data. Dans un premier temps, construire les modèles les plus performants. Les exporter. Exploiter le fruit de leurs prédictions sous 2 formats :
 - Prédictions pour chaque ligne du périmètre des scores pour tous les groupes (partis) référencés.
 - Exporter pour chaque groupe le poids de chaque facteur d’importance pour plus tard les examiner. 
 Concrètement, chacun de nous a depuis la même data travailler sur un modèle et s’est chargé de fournir sous forme de données SQL ou de fichier plat les 2 types d’informations attendues.
 
-## Mise en place de la base SQL
+### Mise en place de la base SQL
 
 Toutes nos informations en entrée comme en sortie seront centralisées dans une base SQL avec les tables ci-dessous :
 - villes_tbl [informations sur les communes]
@@ -147,7 +149,7 @@ Pour nos modèles :
 
 Ainsi cette base sera la seule DATA a exporter pour la mise en ligne de notre travail.
 
-## Livraison_FRONT : Visualisation finale des données
+### Livraison_FRONT : Visualisation finale des données
 
 Avant même de se lancer et de mettre en forme nos résultats, il nous a fallu observer ces derniers, les analyser et voir comment les présenter. Ces 3 documents sont le support de ce travail.
 - Front_france.ipynb : analyse des données globales
