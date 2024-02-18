@@ -1,19 +1,9 @@
 # HISTO POLITIK : M.L. & Sciences Sociales
 
-This GitHub repository represents a comprehensive application for controlling the computer's cursor and performing various mouse actions using voice commands and head position. This application is designed to provide hands-free control and enhance accessibility for users with motor disabilities. It integrates three major components: audio classification, face detection for cursor positioning, and mouse action execution.
-
 #### L'idée : Qui vote pour qui et pourquoi ?
 
 Comment se compose la structure sociale des électorats des différents courants et mouvements politiques ?
 En associant : le travail inédit de numérisation des données électorales et socio-économiques établit par Julia Cagé et Thomas Piketty et les outils de Machine Learning pourrait on prédire et/ou expliquer les résultats des différents courants politiques aux dernières législatives (2022) ?
-
-#### Objectif créer un outil permettant :
-
-- Visualiser nos données sous forme de cartes [Cartographie et Data]
-
-- Comparer nos prédictions et la realité sur toutes les communes de France qui disposaient d'au moins de 200 inscrits lors des éléctions législatives de 2022 [Prédictions]
-
-- Visualiser les facteurs d'importances par partis politiques support à notre prédiction [Modèles]
 
 ## Table des matières
 
@@ -32,14 +22,14 @@ En associant : le travail inédit de numérisation des données électorales et 
     - [MODEL - Analyse / exploitations de 3 Modèles](#MODEL---Analyse-/-exploitations-de-3-Modèles)
     - [Mise en place de la base SQL](#Mise-en-place-de-la-base-SQL)
     - [Livraison_FRONT - Visualisation finale des données](#Livraison_FRONT---Visualisation-finale-des-données)
-  - [streamlit_app](#streamlit_app)
+- [streamlit_app](#streamlit_app)
 - [HuggingFace space](#HuggingFace-space)
 - [Auteurs](#Auteurs)
 
 
 ## Instructions
 
-Suivez les instructions suivantes pour mettre en place l'application et la faire tourner en local sur votre machine
+Suivez les instructions suivantes pour mettre en place l'application et la faire tourner en local sur votre machine.
 
 ### Prérequis
 
@@ -78,7 +68,7 @@ source venv/bin/activate
 
 5. Installer les dépendances nécessaires:
 ```bash
-pip install -r requirements.txt
+pip install -r requirements_dev.txt
 ```
 ## Etapes réalisées pour la réalisation du projet
 
@@ -86,7 +76,7 @@ pip install -r requirements.txt
 
 #### > EDA0_import_files.ipynb:
 
-Après la récupération de l'intégralité des fichiers au format CSV à partir du site web.
+Après la récupération de l'intégralité des fichiers au format CSV à partir du site web.(https://unehistoireduconflitpolitique.fr/telecharger.html)
 Construction d’un dataframe cataloguant les fichiers explorés.
 Importation de ces mêmes fichiers dans des dataframes individuelles, suivie d'une analyse des dimensions, des valeurs, et de l'exploration des colonnes.
 L'objectif est de filtrer ces documents, identifier les liaisons, et surtout construire un fichier synthétique au format Excel de l'ensemble des documents avec :
@@ -94,11 +84,13 @@ L'objectif est de filtrer ces documents, identifier les liaisons, et surtout con
 - 1 : un onglet contenant la liste et la synthèse des documents.
 - 2 : un onglet avec une colonne par fichier, où chaque ligne comprend :
   - L'intitulé des colonnes.
-  - Pour les valeurs numériques, les valeurs extrêmes.
+  - L'intervalle des valeurs, pour les données numériques.
   - Le nombre total de lignes, ainsi que le nombre et la proportion des valeurs manquantes (NaN).
-- 3 : un onglet avec la même structure que l'onglet précédent, mais présentant 2 
+- 3 : un onglet avec la même structure que l'onglet précédent, mais présentant 2 exemples aléatoires
 
-PS : Les structures des partis évoluent constamment, et transcoder ces évolutions serait trop chronophage (nécessiterait des arbitrages discutables). De plus, les structures nationales des communes et cantons évoluent également, et vouloir travailler sur des échelles de temps nécessiterait des travaux de transcodage prolongés.
+PS : Nous nous sommes arrété sur les législatives 2022 car :
+Les structures des partis évoluent constamment, et transcoder ces évolutions serait trop chronophage (nécessiterait des arbitrages discutables). 
+Les structures nationales des communes et cantons évoluent également, et vouloir travailler sur des échelles de temps nécessiterait des travaux de transcodage prolongés.
 
 #### > EDA1_Analysis_2cities.ipynb:
 Ce notebook analyse le catalogue de dataframes et régénère, pour chaque fichier, une dataframe réduite au périmètre de 2 communes. Cela permet de faire des analyses poussées pour valider l'unicité ou l'absence d'unité de ligne par commune et de créer des graphiques.
@@ -114,10 +106,10 @@ Ce notebook filtrera, notera et fournira en sortie les informations le concernan
 #### > Moteur d’intégration fusionnant et validant les données pour nos modèles :
 
 Ce notebook parcourt le répertoire /DATA/EXPORT_CSV/ et traite tous les fichiers .csv. Tests & actions :
-- A: commence par final
-- B: validation nb de lignes
+- A: le nom du fichier doit commencer par final
+- B: validation du nombre de lignes
 - C: validation des entêtes
-- D: validation des clés (depuis list_codecommune_leg2022_50inscrits.txt)
+- D: validation des clés (depuis list_codecommune_leg2022_200inscrits.txt)
 - E: récupération de la liste des bons préfixes à traiter (file_name.split('_')[1:-1])
 - F: récupération de la dataframe avec les colonnes qui disposent des préfixes souhaités
 - G: fusion (merge) sur la colonne codecommune
@@ -147,7 +139,7 @@ Pour nos modèles :
   - XGBoost_reg200_importance_tbl
   - XGBoost_reg200_resultats_tbl
 
-Ainsi cette base sera la seule DATA a exporter pour la mise en ligne de notre travail.
+Ainsi cette base sera la seule DATA à exporter pour la mise en ligne de notre travail (environnement de production : streamlit).
 
 ### Livraison_FRONT : Visualisation finale des données
 
@@ -161,6 +153,15 @@ Répertoire streamlit pour faire les tests en local.
 ```bash
 streamlit run Accueil.py
 ```
+### les pages permettent de :
+
+- Accueil.py : Présentation du projet et des sources. Ainsi que présentation des regroupements des partis politiques.
+
+- pages/Cartographie-et-Data.py : Visualiser d'une partie des données sous forme de cartes.
+
+- pages/Prédictions.py : Comparer les prédictions et la realité sur toutes les communes de France qui disposaient d'au moins de 200 inscrits lors des éléctions législatives de 2022.
+
+- pages/Modèles.py : Visualiser les facteurs d'importances (ex: age, diplôme, nombre de crimes...) par partis politiques support à notre prédiction.
 
 ## HuggingFace space
 Dans le cas où vous ne voulez rien installer. Vous pouvez aller directement sur [Hugging Face Space](https://huggingface.co/spaces/Caicaire93/Histo_politik) créé pour l'occasion.
@@ -168,3 +169,4 @@ Dans le cas où vous ne voulez rien installer. Vous pouvez aller directement sur
 ## Auteurs
 - [NYX](https://github.com/nyxibe)
 - [Caicaire93](https://github.com/Caicaire93)
+- [Anouaradyel2](https://github.com/anouaradyel2)
